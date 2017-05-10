@@ -47,7 +47,7 @@ class ToastContainer extends Component {
   render() {
     return (
       <Modal
-        supportedOrientations={this.state.supportedOrientations || null}
+        supportedOrientations={this.state.supportedOrientations || null}
         animationType={(this.state.position=='bottom') ? "slide" : "fade"}
         transparent={true}
         visible={this.state.modalVisible}

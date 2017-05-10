@@ -31,7 +31,16 @@ declare module 'native-base' {
         /**
          * see Widget Text.js
          */
-        interface Badge extends ReactNative.ViewProperties { }
+        interface BsStyle{
+            success?:boolean,
+            primary?:boolean,
+            danger?: boolean,
+            warning?: boolean,
+            info?: boolean,
+        }
+
+        interface Badge extends ReactNative.ViewProperties,BsStyle {
+        }
         /**
          * see Widget CardSwiper.js
          */
@@ -80,15 +89,15 @@ declare module 'native-base' {
         }
 
         interface Left{
-
+            style?: ReactNative.ViewStyle
         }
 
         interface Body{
-
+            style?: ReactNative.ViewStyle
         }
 
         interface Right{
-
+            style?: ReactNative.ViewStyle
         }
 
         /**
@@ -139,7 +148,7 @@ declare module 'native-base' {
         /**
          * see Widget Button.js
          */
-        interface Button extends ReactNative.TouchableOpacityProperties {
+        interface Button extends ReactNative.TouchableOpacityProperties,BsStyle {
             /**
              * Defines button style
              */
@@ -152,16 +161,16 @@ declare module 'native-base' {
              * Block level button
              */
             block?: boolean,
-            primary?: boolean,
+            //primary?: boolean,
             /**
              * Gives you effect of Icon-buttons.
              * To have button with transparent background, include this prop.
              */
             transparent?: boolean,
-            success?: boolean,
-            danger?: boolean,
-            warning?: boolean,
-            info?: boolean,
+            //success?: boolean,
+            //danger?: boolean,
+            // warning?: boolean,
+            //info?: boolean,
             color?: string,
             /**
              * Applies outline button style.
@@ -196,6 +205,9 @@ declare module 'native-base' {
             disabled?: boolean,
             active?: boolean,
             inputButton?: boolean,
+            full?:boolean,
+            light?:boolean,
+            dark?:boolean
         }
         /**
          * see Widget List.js
@@ -238,13 +250,22 @@ declare module 'native-base' {
             /**
              * Sub caption for List Item.
              */
-            note?: string
+            note?: string,
+            itemHeader?:boolean,
+            first?:boolean,
+            selected?:boolean
         }
-        /**
+
+        interface Separator{
+            bordered?:boolean,
+        }
+
+            /**
          * see Widget CardItem.js
          */
         interface CardItem extends ReactNative.TouchableOpacityProperties {
             header?: boolean,
+            footer?:boolean,
             cardBody?: boolean,
             button?: boolean
         }
@@ -382,7 +403,7 @@ declare module 'native-base' {
          */
         interface Card extends ReactNative.ViewProperties, ReactListViewProperties {
             dataArray?: Array<any>,
-            style?: React.Ref<ReactNative.ViewProperties | ReactNative.ListViewProperties>
+            style?: ReactNative.ViewStyle,
             ref?: React.Ref<ReactNative.ViewProperties | ReactListViewProperties>,
         }
         /**
@@ -419,6 +440,9 @@ declare module 'native-base' {
              * Disables inputting data.
              */
             disabled?: boolean,
+            regular?:boolean,
+            underline?:boolean,
+            rounded?:boolean
         }
         /**
          * see Widget Input.js
@@ -442,6 +466,10 @@ declare module 'native-base' {
          */
         interface Textarea extends ReactNative.TextInputProperties {
             rowSpan: number;
+        }
+
+        interface Label{
+
         }
         /**
          * see Widget Icon.js
@@ -486,7 +514,7 @@ declare module 'native-base' {
         /**
          * see Widget CheckBox.js
          */
-        interface Radio {
+        interface Radio extends ReactNative.TouchableOpacityProperties {
             selected?: boolean
         }
         /**
@@ -547,31 +575,44 @@ declare module 'native-base' {
             springFriction?: number
         }
 
-        interface Tab{
+        interface Tab {
             heading:TabHeading,
 
         }
-        interface TabHeading{
+        interface TabHeading {
             activeTabStyle?:ReactNative.ViewStyle,
             textStyle?:ReactNative.TextStyle,
             activeTextStyle?:ReactNative.TextStyle
         }
-        
+
         interface Item {
-            fixedLabel?:boolean,
-            floatingLabel?:boolean,
-            inlineLabel?:boolean,
-            stackedLabel?:boolean,
-            placeholderLabel?:boolean,
-            bordered?:boolean,
-            underline?:boolean,
-            rounded?:boolean,
+            fixedLabel?: boolean,
+            floatingLabel?: boolean,
+            inlineLabel?: boolean,
+            stackedLabel?: boolean,
+            placeholderLabel?: boolean,
+            bordered?: boolean,
+            underline?: boolean,
+            rounded?: boolean,
             disabled?: boolean,
             error?: boolean,
-            placeholder?:string,
-            secureTextEntry?:boolean,
+            placeholder?: string,
+            secureTextEntry?: boolean,
             success?: boolean,
-            last?:boolean,
+            last?: boolean,
+        }
+
+        interface Form{
+
+        }
+
+        interface Fab{
+            active?:boolean,
+            direction?:"down"|"up"|"left"|"right",
+            containerStyle?:ReactNative.ViewStyle,
+            onPress?:()=>void,
+            position?:'topLeft'|'topRight'|'bottomLeft'|'bottomRight',
+            style?:ReactNative.ViewStyle
         }
     }
 
@@ -807,5 +848,38 @@ declare module 'native-base' {
      * NativeBase.Item
      */
     export class Item extends React.Component<NativeBase.Item, any> { }
+    /**
+     * NativeBase.Form
+     */
+    export class Form extends React.Component<NativeBase.Form,any>{}
+    /**
+     * NativeBase.Fab
+     */
+    export class Fab extends React.Component<NativeBase.Fab,any>{}
 
+    export class Separator extends React.Component<NativeBase.Separator,any>{}
+
+    export class Label extends React.Component<NativeBase.Label,any>{}
+
+    export class ActionSheet{
+        static show:(
+            configuration:{
+                  options: string[],
+                  cancelButtonIndex: number,
+                  destructiveButtonIndex: number,
+                  title: string},
+            onSelect:(index:number)=>void
+
+        )=>void
+    }
+
+    export class Toast {
+        static show(configuration: {
+            text: string,
+            buttonText: string,
+            position: 'top'|'bottom'|'center',
+            type?: 'danger'|'success'|'warning',
+            duration?: number
+        }): void;
+    }
 }

@@ -9,7 +9,8 @@ List=function(_Component){_inherits(List,_Component);
 function List(props){_classCallCheck(this,List);var _this=_possibleConstructorReturn(this,(List.__proto__||Object.getPrototypeOf(List)).call(this,
 props));
 if(props.dataArray&&props.renderRow){
-var ds=new _reactNative.ListView.DataSource({rowHasChanged:function rowHasChanged(r1,r2){return r1!==r2;}});
+var rowHasChanged=props.rowHasChanged||function(r1,r2){return r1!==r2;};
+var ds=new _reactNative.ListView.DataSource({rowHasChanged:rowHasChanged});
 _this.state={
 dataSource:ds.cloneWithRows(props.dataArray)};
 
@@ -35,7 +36,7 @@ if(this.state.dataSource){
 return(
 _react2.default.createElement(_reactNative.ListView,_extends({},
 this.props,{
-ref:function ref(_ref){return _this2.root=_ref;},
+ref:function ref(_ref){return _this2._root=_ref;},
 enableEmptySections:true,
 dataSource:this.state.dataSource,
 renderRow:this.props.renderRow})));
